@@ -17,14 +17,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var store = RecipeStore()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            Tab("Recipes", systemImage: "fork.knife") {
+                RecipeListView()
+            }
+            Tab("Discover", systemImage: "sparkles") {
+                PlaceholderView(title: "Discover", systemImage: "sparkles", message: "Recommended recipes will appear here.")
+            }
+            Tab("Planner", systemImage: "calendar") {
+                PlaceholderView(title: "Planner", systemImage: "calendar", message: "Plan your meals for the week.")
+            }
+            Tab("Shopping", systemImage: "cart") {
+                PlaceholderView(title: "Shopping", systemImage: "cart", message: "Your shopping list is empty.")
+            }
+            Tab("Settings", systemImage: "gearshape") {
+                PlaceholderView(title: "Settings", systemImage: "gearshape", message: "App settings will appear here.")
+            }
         }
-        .padding()
+        .environment(store)
     }
 }
 

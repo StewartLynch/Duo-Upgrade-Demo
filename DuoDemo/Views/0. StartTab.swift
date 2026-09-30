@@ -16,7 +16,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct StartTab: View {
     @State private var store = RecipeStore()
 
     var body: some View {
@@ -42,5 +42,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    StartTab()
 }

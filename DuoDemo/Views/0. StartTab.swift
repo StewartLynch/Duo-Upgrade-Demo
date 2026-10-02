@@ -28,7 +28,7 @@ struct StartTab: View {
                 PlaceholderView(title: "Discover", systemImage: "sparkles", message: "Recommended recipes will appear here.")
             }
             Tab("Planner", systemImage: "calendar") {
-                PlaceholderView(title: "Planner", systemImage: "calendar", message: "Plan your meals for the week.")
+                PlannerView()
             }
             Tab("Shopping", systemImage: "cart") {
                 PlaceholderView(title: "Shopping", systemImage: "cart", message: "Your shopping list is empty.")

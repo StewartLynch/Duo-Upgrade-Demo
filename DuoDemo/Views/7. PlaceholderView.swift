@@ -32,3 +32,7 @@ struct PlaceholderView: View {
         }
     }
 }
+
+#Preview {
+    PlaceholderView(title: "Discover", systemImage: "sparkles", message: "Recommended recipes will appear here.")
+}

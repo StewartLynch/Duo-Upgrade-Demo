@@ -20,6 +20,7 @@ struct RecipeListView: View {
     @State private var searchText = ""
     @State private var showingAdd = false
     @State private var recipeToEdit: Recipe?
+    @State private var selectedID: Recipe.ID?
 
     private var filtered: [Recipe] {
         guard !searchText.isEmpty else { return store.recipes }
@@ -30,11 +31,11 @@ struct RecipeListView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            List(filtered) { recipe in
-                NavigationLink(value: recipe) {
+        NavigationSplitView {
+            List(filtered, selection: $selectedID) { recipe in
                     RecipeRow(recipe: recipe)
-                }
+                    .tag(recipe.id)
+
                 // Leading edge
                 .swipeActions(edge: .leading, allowsFullSwipe: false) {
                     Button("Favorite", systemImage: "heart") {
@@ -65,7 +66,7 @@ struct RecipeListView: View {
             .navigationDestination(for: Recipe.self) { recipe in
                 RecipeDetailView(recipe: recipe)
             }
-            .searchable(text: $searchText, prompt: "Search recipes")
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always),prompt: "Search recipes")
             .overlay {
                 if filtered.isEmpty {
                     ContentUnavailableView.search(text: searchText)
@@ -73,13 +74,11 @@ struct RecipeListView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Sort", systemImage: "arrow.up.arrow.down") { print("Sort") }
-                }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Filter", systemImage: "line.3.horizontal.decrease") { print("Filter") }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Share", systemImage: "square.and.arrow.up") { print("Share list") }
+                    Menu("More", systemImage: "ellipsis.circle") {
+                        Button("Sort", systemImage: "arrow.up.arrow.down") { print("Sort") }
+                        Button("Filter", systemImage: "line.3.horizontal.decrease") { print("Filter") }
+                        Button("Share", systemImage: "square.and.arrow.up") { print("Share list") }
+                    }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add", systemImage: "plus") { showingAdd = true }
@@ -90,6 +89,16 @@ struct RecipeListView: View {
             }
             .sheet(item: $recipeToEdit) { recipe in
                 RecipeFormView(recipe: recipe)
+            }
+        } detail: {
+            if let recipe = store.recipes.first(where: {$0.id == selectedID}) {
+                RecipeDetailView(recipe: recipe)
+            } else {
+                ContentUnavailableView(
+                    "Select a recipe",
+                    systemImage: "fork.knife",
+                    description: Text("Choose a recipe from the list to see its details.")
+                )
             }
         }
     }

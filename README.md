@@ -1,6 +1,6 @@
 # Updating and app for iPhone Duo
 
-![AppIcon128](Images/AppIcon128.png) This is the **Starter Project** for the video on updating and application to work well with the iPhone Duo
+![AppIcon128](Images/AppIcon128.png) This is the **completed source code** for the video on updating and application to work well with the iPhone Duo but stops at the **iPad upgrade**.
 
 If you want to support my work, you can - </br>
 

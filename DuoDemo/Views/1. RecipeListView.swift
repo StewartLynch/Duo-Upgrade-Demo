@@ -73,16 +73,7 @@ struct RecipeListView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Menu("More", systemImage: "ellipsis.circle") {
-                        Button("Sort", systemImage: "arrow.up.arrow.down") { print("Sort") }
-                        Button("Filter", systemImage: "line.3.horizontal.decrease") { print("Filter") }
-                        Button("Share", systemImage: "square.and.arrow.up") { print("Share list") }
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add", systemImage: "plus") { showingAdd = true }
-                }
+               RecipeListToolbar(showingAdd: $showingAdd)
             }
             .sheet(isPresented: $showingAdd) {
                 RecipeFormView()

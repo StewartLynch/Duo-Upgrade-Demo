@@ -20,11 +20,45 @@ import SwiftUI
 struct PlannerView: View {
     var body: some View {
         NavigationStack {
-            List {
-                WeekSection()
-                ShoppingSection()
+            Group {
+                if #available(iOS 27.1, *) {
+                    FoldAwarePlanner()
+                } else {
+                    CombinedPlanner()
+                }
             }
             .navigationTitle("Planner")
+        }
+    }
+}
+
+@available(iOS 27.1, *)
+private struct FoldAwarePlanner: View {
+    var body: some View {
+        GeometryReader { proxy in
+            if proxy.reservedRegions(kind: .division, options: .includeInactive).isEmpty {
+                CombinedPlanner()
+            } else {
+                ArrangementView {
+                    List {
+                        WeekSection()
+                    }
+                } secondary: {
+                    List {
+                        ShoppingSection()
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+private struct CombinedPlanner: View {
+    var body: some View {
+        List {
+            WeekSection()
+            ShoppingSection()
         }
     }
 }

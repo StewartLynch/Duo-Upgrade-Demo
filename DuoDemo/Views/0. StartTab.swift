@@ -34,9 +34,10 @@ struct StartTab: View {
                 PlaceholderView(title: "Shopping", systemImage: "cart", message: "Your shopping list is empty.")
             }
             Tab("Settings", systemImage: "gearshape") {
-                PlaceholderView(title: "Settings", systemImage: "gearshape", message: "App settings will appear here.")
+                SettingView()
             }
         }
+        .foldGuide()
         .environment(store)
         .tabViewStyle(.sidebarAdaptable)
     }

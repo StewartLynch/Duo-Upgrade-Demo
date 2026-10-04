@@ -57,6 +57,7 @@ struct RecipeFormView: View {
                 }
             }
         }
+        .verticalToolbarDisabled()
     }
 
     private func save() {
@@ -70,5 +71,16 @@ struct RecipeFormView: View {
             store.add(Recipe(name: name, cuisine: cuisine, minutes: minutes, notes: notes))
         }
         dismiss()
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func verticalToolbarDisabled() -> some View {
+        if #available(iOS 27.1, *) {
+            toolbarVerticalBehavior(.disabled)
+        } else {
+            self
+        }
     }
 }

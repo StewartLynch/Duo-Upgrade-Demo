@@ -43,12 +43,14 @@ private struct FoldAwarePlanner: View {
                     List {
                         WeekSection()
                     }
+                    .padding(.horizontal)
                 } secondary: {
                     List {
                         ShoppingSection()
                     }
+                    .padding(.horizontal)
                 }
-
+                .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
             }
         }
     }
